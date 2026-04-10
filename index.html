@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin:0;
+  background:black;
+  color:white;
+  text-align:center;
+  font-family:sans-serif;
+}
+
+img {
+  width:100%;
+  height:75vh; /* reduced height so text visible */
+  object-fit:cover; /* slight zoom */
+}
+
+#text {
+  font-size:22px;
+  margin-top:10px;
+  padding:0 15px;
+}
+
+#options {
+  margin-top:15px;
+}
+
+button {
+  margin:10px;
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d6d;
+  color:white;
+  font-size:16px;
+}
+
+textarea {
+  width:80%;
+  height:100px;
+  margin-top:15px;
+  border-radius:10px;
+  padding:10px;
+  font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<img id="bg" src="tea.png">
+
+<div id="text">Do you remember?</div>
+
+<div id="options">
+  <button onclick="step2()">Yes </button>
+  <button onclick="step2()">No </button>
+</div>
+
+<script>
+
+function step2(){
+  document.getElementById("text").innerText = "But I remember ";
+  document.getElementById("options").innerHTML =
+    '<button onclick="care1()">What I felt…</button>';
+}
+
+function care1(){
+  document.getElementById("text").innerText = "";
+  document.getElementById("options").innerHTML =
+    '<button onclick="care2()">That day… it wasn’t just tea…</button>';
+}
+
+function care2(){
+  document.getElementById("options").innerHTML =
+    '<button onclick="care3()">It felt like care </button>';
+}
+
+function care3(){
+  document.getElementById("text").innerText = "";
+  document.getElementById("options").style.display = "none";
+
+  document.getElementById("bg").src = "office.png";
+
+  setTimeout(function(){
+    document.getElementById("bg").src = "walking.png";
+
+    setTimeout(function(){
+      document.getElementById("bg").src = "thinking.png";
+
+      // FINAL BUTTON ONLY
+      document.getElementById("options").style.display = "block";
+      document.getElementById("options").innerHTML =
+        '<button onclick="showForm()">I don’t know if you felt the same…</button>';
+
+    }, 4000);
+
+  }, 4000);
+}
+
+//  SHOW FORM AFTER CLICK
+function showForm(){
+
+  document.getElementById("text").innerHTML = `
+    but it meant a lot to me.<br><br>
+    If you feel anything… you can tell me 
+  `;
+
+  document.getElementById("options").innerHTML = `
+    <form action="https://formspree.io/f/xbdpvgej" method="POST">
+      <textarea name="message" placeholder="Write what you feel..."></textarea><br>
+      <button type="submit">Send</button>
+    </form>
+  `;
+}
+
+</script>
+
+</body>
+</html>
